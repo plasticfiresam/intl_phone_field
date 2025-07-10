@@ -46,6 +46,7 @@ class CountryPickerDialog extends StatefulWidget {
   final List<Country> filteredCountries;
   final PickerDialogStyle? style;
   final String languageCode;
+  final bool enableSearch;
 
   const CountryPickerDialog({
     Key? key,
@@ -56,6 +57,7 @@ class CountryPickerDialog extends StatefulWidget {
     required this.selectedCountry,
     required this.filteredCountries,
     this.style,
+    this.enableSearch = true,
   }) : super(key: key);
 
   @override
@@ -94,25 +96,27 @@ class _CountryPickerDialogState extends State<CountryPickerDialog> {
         padding: widget.style?.padding ?? const EdgeInsets.all(10),
         child: Column(
           children: <Widget>[
-            Padding(
-              padding: widget.style?.searchFieldPadding ?? const EdgeInsets.all(0),
-              child: TextField(
-                cursorColor: widget.style?.searchFieldCursorColor,
-                decoration: widget.style?.searchFieldInputDecoration ??
-                    InputDecoration(
-                      suffixIcon: const Icon(Icons.search),
-                      labelText: widget.searchText,
-                    ),
-                onChanged: (value) {
-                  _filteredCountries = widget.countryList.stringSearch(value)
-                    ..sort(
-                      (a, b) => a.localizedName(widget.languageCode).compareTo(b.localizedName(widget.languageCode)),
-                    );
-                  if (mounted) setState(() {});
-                },
+            if (widget.enableSearch) ...[
+              Padding(
+                padding: widget.style?.searchFieldPadding ?? const EdgeInsets.all(0),
+                child: TextField(
+                  cursorColor: widget.style?.searchFieldCursorColor,
+                  decoration: widget.style?.searchFieldInputDecoration ??
+                      InputDecoration(
+                        suffixIcon: const Icon(Icons.search),
+                        labelText: widget.searchText,
+                      ),
+                  onChanged: (value) {
+                    _filteredCountries = widget.countryList.stringSearch(value)
+                      ..sort(
+                        (a, b) => a.localizedName(widget.languageCode).compareTo(b.localizedName(widget.languageCode)),
+                      );
+                    if (mounted) setState(() {});
+                  },
+                ),
               ),
-            ),
-            const SizedBox(height: 20),
+              const SizedBox(height: 20),
+            ],
             Expanded(
               child: ListView.builder(
                 shrinkWrap: true,
