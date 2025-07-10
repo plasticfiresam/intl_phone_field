@@ -249,6 +249,9 @@ class IntlPhoneField extends StatefulWidget {
   /// If null, default magnification configuration will be used.
   final TextMagnifierConfiguration? magnifierConfiguration;
 
+  /// Enable the search input field in the country picker dialog.
+  final bool enableDialogSearch;
+
   const IntlPhoneField({
     Key? key,
     this.formFieldKey,
@@ -296,6 +299,7 @@ class IntlPhoneField extends StatefulWidget {
     this.pickerDialogStyle,
     this.flagsButtonMargin = EdgeInsets.zero,
     this.magnifierConfiguration,
+    this.enableDialogSearch = true,
   }) : super(key: key);
 
   @override
@@ -373,6 +377,7 @@ class _IntlPhoneFieldState extends State<IntlPhoneField> {
             widget.onCountryChanged?.call(country);
             setState(() {});
           },
+          enableSearch: widget.enableDialogSearch,
         ),
       ),
     );
