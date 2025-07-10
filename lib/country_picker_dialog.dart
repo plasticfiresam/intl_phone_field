@@ -96,7 +96,7 @@ class _CountryPickerDialogState extends State<CountryPickerDialog> {
         padding: widget.style?.padding ?? const EdgeInsets.all(10),
         child: Column(
           children: <Widget>[
-            if (widget.enableSearch)
+            if (widget.enableSearch) ...[
               Padding(
                 padding: widget.style?.searchFieldPadding ?? const EdgeInsets.all(0),
                 child: TextField(
@@ -115,7 +115,8 @@ class _CountryPickerDialogState extends State<CountryPickerDialog> {
                   },
                 ),
               ),
-            const SizedBox(height: 20),
+              const SizedBox(height: 20),
+            ],
             Expanded(
               child: ListView.builder(
                 shrinkWrap: true,
