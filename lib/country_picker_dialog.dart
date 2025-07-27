@@ -92,9 +92,10 @@ class _CountryPickerDialogState extends State<CountryPickerDialog> {
               ? (mediaWidth - width) / 2
               : defaultHorizontalPadding),
       backgroundColor: widget.style?.backgroundColor,
-      child: Container(
+      child: Padding(
         padding: widget.style?.padding ?? const EdgeInsets.all(10),
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             if (widget.enableSearch) ...[
               Padding(
@@ -122,6 +123,7 @@ class _CountryPickerDialogState extends State<CountryPickerDialog> {
                 shrinkWrap: true,
                 itemCount: _filteredCountries.length,
                 itemBuilder: (ctx, index) => Column(
+                  mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
                     ListTile(
                       leading: kIsWeb
